@@ -29,7 +29,10 @@ const Chat = () => {
     <div className="flex-1 h-full flex flex-col p-2">
       <div className="flex-1 flex flex-col justify-center gap-4 text-white items-center">
         <p className="text-4xl">How can I help you today?</p>
-        <button onClick={createNewChat} className="border-2 p-2  bg-white text-gray-900 font-medium rounded-md">
+        <button
+          onClick={createNewChat}
+          className="border-2 p-2  bg-white text-gray-900 font-medium rounded-md"
+        >
           Start a new Conversation
         </button>
       </div>

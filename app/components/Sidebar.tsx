@@ -42,7 +42,10 @@ export default function Sidebar() {
     }
   }
 
-  async function deleteHanlder(e:React.MouseEvent<HTMLButtonElement,MouseEvent>, chatId: string) {
+  async function deleteHanlder(
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    chatId: string,
+  ) {
     e.stopPropagation();
     try {
       const res = await deleteChat(chatId);

@@ -22,6 +22,7 @@ const Page = () => {
   const [rows, setRows] = useState<number>(2);
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
+  //fetch all message of chat
   useEffect(() => {
     async function getMessages() {
       const allConverstion = await getConveration(id);
@@ -30,6 +31,7 @@ const Page = () => {
     getMessages();
   }, [id]);
 
+  //dynamic handling of textarea size
   useEffect(() => {
     if (textAreaRef.current) {
       textAreaRef.current.style.height = "auto";
@@ -38,8 +40,11 @@ const Page = () => {
     }
   }, [textAreaRef.current, prompt]);
 
+  // send prompt to gpt
   async function sendPrompt() {
+    console.log(prompt.trim());
     if (loading) return;
+    if (prompt.trim() === "") return;
     setLoading(true);
     setError(false);
     const message = prompt;
@@ -61,6 +66,14 @@ const Page = () => {
       setLoading(false);
     }
   }
+
+  function promptChangeHandler(e: React.ChangeEvent<HTMLTextAreaElement>) {
+    {
+      if (e.target.value.trim() === "") return;
+      setPrompt(e.target.value);
+    }
+  }
+
   return (
     <div className="flex-1 flex overflow-auto flex-col bg-gray-800 mt-8  md:mt-0">
       <div className="overflow-y-auto flex-1 ">
@@ -76,7 +89,7 @@ const Page = () => {
       <div className="border p-1 border-black rounded-lg bg-white flex items-center ">
         <textarea
           className="w-full overflow-y-auto  outline-none resize-none"
-          onChange={(e) => setPrompt(e.target.value)}
+          onChange={(e) => promptChangeHandler(e)}
           value={prompt}
           placeholder="Enter a prompt"
           rows={1}
